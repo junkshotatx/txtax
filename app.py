@@ -6,7 +6,11 @@ app = Flask(__name__)
 
 # Load CSV files
 tax_rates_df = pd.read_csv("tax_jurisdiction_rates-2025Q3.csv")
-county_fips_df = pd.read_csv("TX-County-FIPS-491.csv")
+
+# Load and combine both address range CSVs
+part1 = pd.read_csv("TX-County-FIPS-453.csv")
+part2 = pd.read_csv("TX-County-FIPS-491.csv")
+county_fips_df = pd.concat([part1, part2], ignore_index=True)
 
 # Clean column headers
 tax_rates_df.columns = tax_rates_df.columns.str.strip()
